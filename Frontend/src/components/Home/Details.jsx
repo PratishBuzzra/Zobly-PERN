@@ -10,7 +10,7 @@ const Details = () => {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto px-6">
+    <div className="max-w-7xl mx-auto px-6 pb-15">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         {details.map((element) => (
           <div key={element.id} className="flex items-center gap-4 bg-white shadow-lg rounded-lg p-8">

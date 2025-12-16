@@ -6,6 +6,8 @@ import Services from './pages/Services'
 import Blogs from './pages/Blogs'
 import AllJobs from './pages/AllJobs'
 import Register from './pages/Register'
+import Footer from './components/Layout/Footer'
+import Copyright from './components/Layout/Copyright'
 
 const App = () => {
   return (
@@ -19,7 +21,8 @@ const App = () => {
             <Route path='/jobs' element={<AllJobs />}/>
               <Route path='/register' element={<Register />}/>
       </Routes>
-      
+      <Footer />
+      <Copyright />
       </BrowserRouter>
     </div>
   )
