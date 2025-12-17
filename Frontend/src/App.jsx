@@ -8,6 +8,7 @@ import AllJobs from './pages/AllJobs'
 import Register from './pages/Register'
 import Footer from './components/Layout/Footer'
 import Copyright from './components/Layout/Copyright'
+import Login from './pages/Login'
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
           <Route path='/blogs' element={<Blogs />}/>
             <Route path='/jobs' element={<AllJobs />}/>
               <Route path='/register' element={<Register />}/>
+              <Route path='/login' element={<Login />} />
       </Routes>
       <Footer />
       <Copyright />

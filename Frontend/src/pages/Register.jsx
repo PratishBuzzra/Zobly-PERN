@@ -1,14 +1,15 @@
 import React from 'react'
+import { Link } from "react-router-dom";
 
 const Register = () => {
   return (
-    <div>
-     <div>
-      <h1>Create a New Account</h1>
-      <form action="">
+    <div className='min-h-screen flex justify-center items-center py-20'>
+     <div className='w-full p-8 max-w-md'>
+      <h1 className='text-2xl mb-4 text-center'>Create a New Account</h1>
+      <form className='space-y-4'>
         <div>
           <label htmlFor='role' className='block text-sm font-medium'>Register As</label>
-          <select>
+          <select className='border border-gray-300 px-3 py-2 mt-1 w-full rounded'>
             <option value="">Select Role</option>
             <option>Employer</option>
             <option>Job Seeker</option>
@@ -37,11 +38,14 @@ const Register = () => {
             Register
           </button>
       </form>
+      <Link to='/login'>
       <button
-            className="bg-blue-600 w-full py-2 text-white rounded"
+            className="mt-5 border w-full py-2 text-blue-600 rounded"
           >
             Login Now
           </button>
+      
+      </Link>
      </div>
     </div>
   )
