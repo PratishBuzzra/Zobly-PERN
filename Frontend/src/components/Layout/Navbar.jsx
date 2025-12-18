@@ -1,9 +1,14 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import {Link, NavLink} from "react-router-dom"
 import { AuthContext } from '../../Context/authContext'
-AuthContext
+import EmployerDropdown from './EmployerDropdown'
+import { FaUserCircle } from "react-icons/fa";
+import ProfileDropdown from './ProfileDropdown';
 const Navbar = () => {
-  const {isLoggedIn, username, logout} = useContext(AuthContext)
+  const {isLoggedIn, username, logout,role} = useContext(AuthContext)
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [showRoleDropdown, setShowRolwDropdown] = useState(false)
+  const handleDropdown = () => setShowDropdown(prev => !prev)
   return (
     <div className='fixed top-0 left-0 w-full bg-white shadow-lg px-4 py-4 z-50'>
         <div className='flex justify-between items-center max-w-6xl mx-auto'>
@@ -27,11 +32,35 @@ const Navbar = () => {
                 <NavLink to={"/jobs"}>
                   <li>All Jobs</li>
                 </NavLink>
+
+                {isLoggedIn && role === "JOB_SEEKER" ? (
+                  <NavLink to={"/myapplication"}>
+                    <li>My Applications</li>
+                  </NavLink>
+                ):null}
+
+                {isLoggedIn && role === "EMPLOYER" ? (
+                  
+                    <li className='relative'>
+                      <span 
+                  onClick={handleDropdown} 
+                  className="cursor-pointer"
+                >
+                  Employer
+                </span>
+                    {showDropdown && (
+                      
+                        <EmployerDropdown handleDropdown={handleDropdown}/>
+                      
+                    ) }
+                    </li>
+                   
+                ):null}
               </ul>
               {isLoggedIn ? (
-                <div className='flex items-center gap-4'>
-                  <span>Loggin as <span className='font-semibold'>{username}</span></span>
-                  <button onClick={logout} className='bg-blue-600 px-3 py-1 text-white rounded cursor-pointer'>Logout</button>
+                <div className='relative'>
+                  <FaUserCircle onClick={()=>setShowRolwDropdown(prev => ! prev)} className='text-4xl cursor-pointer text-center'/>
+                  {showRoleDropdown && <ProfileDropdown handleProfileDropdown={()=>setShowRolwDropdown(prev => ! prev)}/>}
                 </div>
               ):(
               <Link to={"/register"}>
