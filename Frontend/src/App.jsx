@@ -9,6 +9,12 @@ import Register from './pages/Register'
 import Footer from './components/Layout/Footer'
 import Copyright from './components/Layout/Copyright'
 import Login from './pages/Login'
+import Applicants from './pages/EmployerPage/Applicants'
+import PostJob from './pages/EmployerPage/PostJob'
+import ViewYourJob from './pages/EmployerPage/ViewYourJob'
+import EmployerRoutes from './routes/EmployerRoutes'
+import MyApplication from './pages/JobSeekerPage/MyApplication'
+import JobseekerRouter from './routes/JobseekerRouter'
 
 const App = () => {
   return (
@@ -22,6 +28,18 @@ const App = () => {
             <Route path='/jobs' element={<AllJobs />}/>
               <Route path='/register' element={<Register />}/>
               <Route path='/login' element={<Login />} />
+              
+            <Route element={<EmployerRoutes />}>
+              <Route path='/applicants' element={<Applicants />} />
+              <Route path='/post-job' element={<PostJob />} />
+              <Route path='/your-jobs' element={<ViewYourJob />} />
+
+            </Route>
+            <Route element={<JobseekerRouter />}>
+              <Route path='/myapplication' element={<MyApplication />} />
+              
+
+            </Route>
       </Routes>
       <Footer />
       <Copyright />

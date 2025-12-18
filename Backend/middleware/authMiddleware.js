@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken'
+import prisma from '../DB/db.config.js';
 const secret = process.env.JWT_SECRET_KEY;
 
 
@@ -44,4 +45,23 @@ export const requireSignIn = async (req, res, next) => {
     }
 };
 
+
+
+export const authorizeRole = (...allowedRoles) => {
+    return(req, res, next) => {
+        if(!req.user){
+            return res.status(401).json({
+                success: false,
+                message: "unauthorized",
+            });
+        }
+        if(!allowedRoles.includes(req.user.role)){
+            return res.status(403).json({
+                success: false,
+                message: "forbidden access denied"
+            });
+        }
+        next();
+    }
+}
 

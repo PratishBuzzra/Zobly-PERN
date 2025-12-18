@@ -13,12 +13,16 @@ export const AuthProvider = ({children})=>{
         const checkAuth = async ()=>{
             try{
                 const res = await fetch(`${import.meta.env.VITE_API_URL}/user/me`, 
-                    {credentials: "include"}
+        
+                    {
+                        method: 'GET', 
+                        credentials: "include"}
                 );
                 if(res.ok){
                     const data = await res.json();
                     setIsLoggedIn(true)
                     setRole(data.user.role);
+                    setUsername(data.user.name)
                 }
             }catch(err){
                 console.log("not logged in");
@@ -39,6 +43,7 @@ export const AuthProvider = ({children})=>{
      }
       const logout = async() => {
         await fetch(`${import.meta.env.VITE_API_URL}/user/logout`, {
+            method: "POST",
             credentials: "include"
         })
 

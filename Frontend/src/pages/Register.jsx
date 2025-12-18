@@ -24,6 +24,8 @@ const handleSubmit = async (e)=>{
   e.preventDefault();
   const {role, name, email, PhoneNumber, password} = formData
   console.log(base_url);
+
+ 
   
   try {
     const res = await fetch(`${base_url}/user/register`,{

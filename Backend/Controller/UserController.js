@@ -8,19 +8,19 @@ export const CreateUser = async (req, res)=>{
         const {role, name, email,PhoneNumber, password} = req.body;
 
         if(!role){
-            return res.send({message: "role is required"});
+            return res.status(400).json({ message: "role is required" });
         }
         if(!name){
-            return res.send({message: "name is required"});
+           return res.status(400).json({ message: "name is required" });
         }
         if(!email){
-            return res.send({message: "name is required"});
+            return res.status(400).json({ message: "email is required" });
         }
          if(!PhoneNumber){
-            return res.send({message: "phonenumber is required"});
+            return res.status(400).json({ message: "phonenumber is required" });
         }
         if(!password){
-            return res.send({message: "password is required"});
+            return res.status(400).json({ message: "password is required" });
         }
         
         const checkExistingUser = await prisma.user.findUnique({
@@ -118,8 +118,9 @@ export const LoginUser =async (req, res)=>{
 
          res.cookie('auth-token', accessToken, {
       httpOnly: true, // Can't be accessed via JavaScript
-      secure: false,
       sameSite: "lax",
+      secure: false,
+      path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 1 week expiration
       
     });
@@ -147,7 +148,8 @@ export const LogoutUser = async (req, res)=>{
     res.clearCookie('auth-token', {
         httpOnly: true,
         sameSite: "lax",
-        secure: false
+        secure: false,
+        path: "/",
     });
     res.status(200).json({status: true, message: "logout success"})
 }
