@@ -27,4 +27,45 @@ enum Role {
      password String 
      role Role 
      created_at DateTime @default(now()) 
+     jobs Job[]
      }
+
+     enum JobType {
+      Full_Time
+      Part_Time
+      Remote
+      Hybrid
+
+     }
+       enum ExperienceLevel {
+      Internship
+      Entry_Level
+      Mid_Level
+      Senior_Level
+     }
+       enum Field {
+      Tech
+      Marketing
+      HealthCare
+      Industry
+      Finance
+     }
+
+      model Job {
+        id Int @id @default(autoincrement())
+        title String
+        companyName String
+        location String
+        salary String
+        jobType JobType
+        experienceLevel ExperienceLevel
+        field Field
+        description String
+        qualifications String[]
+        companyBackground String
+        image String
+        createdAt DateTime @default(now())
+        employerId Int
+        employer User @relation(fields: [employerId], references: [id])
+      }
+    

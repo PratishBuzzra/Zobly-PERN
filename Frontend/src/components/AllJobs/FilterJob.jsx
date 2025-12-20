@@ -7,7 +7,7 @@ const FilterJob = () => {
 
       {/* Industry Filter */}
       <div className="flex flex-col gap-2 mb-6">
-        <label className="text-lg font-semibold">Top Industry</label>
+        <label className="text-lg font-semibold">Top Fields</label>
         <select className="w-full max-w-sm border border-gray-300 px-4 py-2 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none">
           <option value="">Select Industry</option>
           <option value="Tech">Tech</option>

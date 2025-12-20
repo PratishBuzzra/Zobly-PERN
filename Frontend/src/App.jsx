@@ -15,6 +15,7 @@ import ViewYourJob from './pages/EmployerPage/ViewYourJob'
 import EmployerRoutes from './routes/EmployerRoutes'
 import MyApplication from './pages/JobSeekerPage/MyApplication'
 import JobseekerRouter from './routes/JobseekerRouter'
+import JobDetails from './pages/JobDetails'
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
             <Route path='/jobs' element={<AllJobs />}/>
               <Route path='/register' element={<Register />}/>
               <Route path='/login' element={<Login />} />
+               <Route path="/jobs/:id" element={<JobDetails />} />
               
             <Route element={<EmployerRoutes />}>
               <Route path='/applicants' element={<Applicants />} />
