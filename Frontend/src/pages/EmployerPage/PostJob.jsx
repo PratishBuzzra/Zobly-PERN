@@ -49,8 +49,8 @@ const PostJob = () => {
               className='border-b border-gray-300 text-lg p-2 w-full focus:outline-none focus:ring-2 focus:ring-green-600'
             >
               <option value="">Job Type</option>
-              <option value="Full-Time">Full-Time</option>
-              <option value="Part-Time">Part-Time</option>
+              <option value="Full_Time">Full-Time</option>
+              <option value="Part_Time">Part-Time</option>
               <option value="Remote">Remote</option>
               <option value="Hybrid">Hybrid</option>
             </select>
@@ -59,9 +59,9 @@ const PostJob = () => {
             >
               <option value="">Experience</option>
               <option value="Internship">Internship</option>
-              <option value="Entry-Level">Entry-Level</option>
-              <option value="Mid-Level">Mid-Level</option>
-              <option value="Senior-Level">Senior-Level</option>
+              <option value="Entry_evel">Entry-Level</option>
+              <option value="Mid_Level">Mid-Level</option>
+              <option value="Senior_Level">Senior-Level</option>
             </select>
           </div>
 
