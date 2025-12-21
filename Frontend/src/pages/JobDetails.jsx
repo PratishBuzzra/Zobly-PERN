@@ -4,33 +4,40 @@ import { IoCashOutline } from "react-icons/io5";
 import { IoMdBriefcase } from "react-icons/io";
 import { SiLevelsdotfyi } from "react-icons/si";
 import { TbCategoryFilled } from "react-icons/tb";
+import { useContext } from "react";
+import { JobContext } from "../Context/JobContext";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useState } from "react";
 
 const JobDetails = () => {
-  const job = {
-    image: "/hero.jpg",
-    title: "Graphics & Design",
-    company: "Google",
-    location: "Kathmandu, Nepal",
-    salary: "Salary Undisclosed",
-    jobtype: "Full-time",
-    experience: "Entry-Level",
-    category: "Tech",
-    description:
-      "You will work on a variety of design projects for Google's platform.",
-    qualifications: [
-      "Bachelor's degree in Graphic Design or related field",
-      "Proficient in Adobe Creative Suite",
-      "Strong portfolio",
-    ],
-    companyBackground:
-      "Google is a multinational tech company, best known for its search engine and innovation in AI, cloud computing, and digital services.",
-  };
+   const { jobById} = useContext(JobContext)
+   const [job, setJob] = useState(null)
+   const {id} = useParams();
+
+   useEffect(()=>{
+    const fetchJob = async ()=>{
+      const jobData = await jobById(id)
+      setJob(jobData)
+
+    }
+    fetchJob()
+   
+   }, [id, jobById])
+
+   console.log("job state", job);
+   
+
+   if (!job) {
+    return <div className="p-24 text-center">Loading job details...</div>;
+  }
 
   return (
     <div className="w-full max-w-7xl  mx-auto px-6 p-24">
-      <div className="bg-white border border-gray-200 rounded-2xl p-8">
-        
         {/* Header */}
+      
+          <div className="bg-white border border-gray-200 rounded-2xl p-8">
+        
         <div className="flex items-center gap-6 mb-8">
           <img
             src={job.image}
@@ -39,7 +46,7 @@ const JobDetails = () => {
           />
           <div>
             <h1 className="text-3xl font-bold">{job.title}</h1>
-            <p className="text-lg text-gray-600">{job.company}</p>
+            <p className="text-lg text-gray-600">{job.companyName}</p>
           </div>
         </div>
 
@@ -52,13 +59,13 @@ const JobDetails = () => {
             <IoCashOutline /> {job.salary}
           </span>
           <span className="flex items-center gap-2 bg-gray-100 px-4 py-2 rounded-full">
-            <IoMdBriefcase /> {job.jobtype}
+            <IoMdBriefcase /> {job.jobType}
           </span>
           <span className="flex items-center gap-2 bg-gray-100 px-4 py-2 rounded-full">
-            <SiLevelsdotfyi /> {job.experience}
+            <SiLevelsdotfyi /> {job.experienceLevel}
           </span>
           <span className="flex items-center gap-2 bg-gray-100 px-4 py-2 rounded-full">
-            <TbCategoryFilled /> {job.category}
+            <TbCategoryFilled /> {job.field}
           </span>
         </div>
 
@@ -85,7 +92,7 @@ const JobDetails = () => {
         {/* Company Info */}
         <section className="mb-10">
           <h3 className="text-xl font-semibold mb-3">
-            About {job.company}
+            About {job.companyName}
           </h3>
           <p className="text-gray-700 leading-relaxed">
             {job.companyBackground}
@@ -99,6 +106,9 @@ const JobDetails = () => {
           </button>
         </div>
       </div>
+
+   
+      
     </div>
   );
 };

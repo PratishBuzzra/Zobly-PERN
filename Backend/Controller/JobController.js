@@ -89,6 +89,36 @@ export const ViewAllJobs = async (req, res) => {
         
     }
 }
+export const ViewJobById = async (req, res) => {
+    try {
+        const jobId = req.params.id
+        const JobById = await prisma.job.findUnique({
+            where: {
+                id: Number(jobId)
+            }
+        })
+        
+
+        if (!JobById) {
+      return res.status(404).json({
+        success: false,
+        message: "Job not found",
+      });
+    }
+     res.status(200).json({
+      success: true,
+      message: "fetch success",
+      job: JobById,
+    });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            success: false,
+            message: 'Some error occured please try again'
+        })
+        
+    }
+}
 
 export const jobByUser = async (req, res)=>{
     try {

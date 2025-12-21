@@ -5,75 +5,21 @@ import { IoMdBriefcase } from "react-icons/io";
 import { SiLevelsdotfyi } from "react-icons/si";
 import { TbCategoryFilled } from "react-icons/tb";
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { JobContext } from '../../Context/JobContext';
+import { useEffect } from 'react';
 
 const JobListCard = () => {
-    const jobList =  [
-    {
-      id: 1,
-      image: "/hero.jpg",
-      title: "Graphics & Design",
-      company: "Google",
-      location: "Kathmandu, Nepal",
-      salary: "Salary Undisclosed",
-      jobtype: "Full-time",
-      experience: "Entry-Level",
-      Category: "Tech"
-     
-    },
-    {
-      id: 2,
-      image: "/hero.jpg",
-      title: "Graphics & Design",
-      company: "Google",
-      location: "Kathmandu, Nepal",
-      salary: "Salary Undisclosed",
-      jobtype: "Full-time",
-      experience: "Entry-Level",
-      Category: "Tech"
-     
-    },
-    {
-      id: 3,
-      image: "/hero.jpg",
-      title: "Graphics & Design",
-      company: "Google",
-      location: "Kathmandu, Nepal",
-      salary: "Salary Undisclosed",
-      jobtype: "Full-time",
-      experience: "Entry-Level",
-      Category: "Tech"
-     
-    },
-   {
-      id: 4,
-      image: "/hero.jpg",
-      title: "Graphics & Design",
-      company: "Google",
-      location: "Kathmandu, Nepal",
-      salary: "Salary Undisclosed",
-      jobtype: "Full-time",
-      experience: "Entry-Level",
-      Category: "Tech"
-     
-    },
-    {
-      id: 5,
-      image: "/hero.jpg",
-      title: "Graphics & Design",
-      company: "Google",
-      location: "Kathmandu, Nepal",
-      salary: "Salary Undisclosed",
-      jobtype: "Full-time",
-      experience: "Entry-Level",
-      Category: "Tech"
-     
-    }
-    
-  ];
+  const {jobs, allJobs} = useContext(JobContext)
+
+  useEffect(()=>{
+    allJobs();
+  }, [])
+  
   return (
      <div className="w-full max-w-7xl mx-auto px-6 pb-20">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        {jobList.map((job) => (
+        {jobs.map((job) => (
           <div
             key={job.id}
             className="flex flex-col justify-between bg-white shadow-md hover:shadow-xl transition rounded-xl p-6"
@@ -87,7 +33,7 @@ const JobListCard = () => {
               />
               <div>
                 <h2 className="text-lg font-bold">{job.title}</h2>
-                <p className="text-gray-600 font-medium">{job.company}</p>
+                <p className="text-gray-600 font-medium">{job.companyName}</p>
               </div>
             </div>
 
@@ -105,17 +51,17 @@ const JobListCard = () => {
 
               <div className="flex items-center gap-3">
                 <IoMdBriefcase />
-                <span>{job.jobtype}</span>
+                <span>{job.jobType}</span>
               </div>
 
               <div className="flex items-center gap-3">
                 <SiLevelsdotfyi />
-                <span>{job.experience}</span>
+                <span>{job.experienceLevel}</span>
               </div>
 
               <div className="flex items-center gap-3">
                 <TbCategoryFilled />
-                <span>{job.Category}</span>
+                <span>{job.field}</span>
               </div>
             </div>
 
