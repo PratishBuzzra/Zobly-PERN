@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import Cookies from "js-cookie";
+
 
 export const AuthContext = createContext();
 
@@ -8,6 +8,7 @@ export const AuthProvider = ({children})=>{
     const [username, setUsername] = useState("Guest")
     const [role, setRole] = useState(null)
      const [loading, setLoading] = useState(true)
+     const [userId, setUserId] = useState(null);
 
      useEffect(()=>{
         const checkAuth = async ()=>{
@@ -23,6 +24,7 @@ export const AuthProvider = ({children})=>{
                     setIsLoggedIn(true)
                     setRole(data.user.role);
                     setUsername(data.user.name)
+                     setUserId(data.user.id);
                 }
             }catch(err){
                 console.log("not logged in");
@@ -35,12 +37,28 @@ export const AuthProvider = ({children})=>{
         
      }, []);
      
-     const login = (user)=>{
-       setIsLoggedIn(true);
-       setUsername(user.name);
-       setRole(user.role);
+    const login = async () => {
+  setLoading(true);
 
-     }
+  try {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/user/me`, {
+      method: "GET",
+      credentials: "include",
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      setIsLoggedIn(true);
+      setRole(data.user.role);
+      setUsername(data.user.name);
+      setUserId(data.user.id);
+    }
+  } catch (err) {
+    console.error("Auth refresh failed");
+  } finally {
+    setLoading(false);
+  }
+};
       const logout = async() => {
         await fetch(`${import.meta.env.VITE_API_URL}/user/logout`, {
             method: "POST",
@@ -50,9 +68,11 @@ export const AuthProvider = ({children})=>{
     setIsLoggedIn(false);
     setUsername("Guest");
     setRole(null);
+     setUserId(null);
+    
   };
   return (
-    <AuthContext.Provider value={{isLoggedIn, username, login, logout, role, loading}}>
+    <AuthContext.Provider value={{isLoggedIn, username, login, logout, role, loading, userId}}>
         {children}
     </AuthContext.Provider>
 )
