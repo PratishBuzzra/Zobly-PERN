@@ -1,7 +1,7 @@
 import React from 'react'
 import Search from '../components/AllJobs/Search'
 
-import JobListCard from '../components/AllJobs/JobListCard'
+import AllJobCard from '../components/AllJobs/AllJobCard'
 
 const AllJobs = () => {
   return (
@@ -11,7 +11,7 @@ const AllJobs = () => {
         <Search />
         
          <h1 className='text-3xl font-bold'>All Available Jobs</h1>
-        <JobListCard />
+        <AllJobCard />
 
       </div>
     </div>

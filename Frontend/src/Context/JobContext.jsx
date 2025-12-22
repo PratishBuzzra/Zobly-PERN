@@ -9,6 +9,7 @@ const base_url = import.meta.env.VITE_API_URL
 
 const JobProvider = ({children}) => {
     const [jobs, setJob] = useState([])
+    const [userJobs, setUserJobs] = useState([])
 
     const allJobs = async ()=>{
         try {
@@ -43,10 +44,27 @@ const JobProvider = ({children}) => {
             
         }
     }
+       const JobByUser = async ()=>{
+        try {
+            const res = await fetch(`${base_url}/job/yourpostedjob`, {
+                method: 'GET',
+                credentials: "include"
+            })
+
+            if(res.ok){
+                const data = await res.json()
+                console.log("Job API response:", data);
+                setUserJobs(data.job)
+            }
+            
+        } catch (error) {
+            console.error("Failed to fecth jobs", error);
+        }
+    }
 
     
     return (
-    <JobContext.Provider value={{jobs, allJobs, jobById}}>
+    <JobContext.Provider value={{jobs, allJobs, jobById, JobByUser, userJobs}}>
         {children}
     </JobContext.Provider>
 )

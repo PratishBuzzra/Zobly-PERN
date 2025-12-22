@@ -9,7 +9,7 @@ import { useContext } from 'react';
 import { JobContext } from '../../Context/JobContext';
 import { useEffect } from 'react';
 
-const JobListCard = () => {
+const AllJobCard = () => {
   const {jobs, allJobs} = useContext(JobContext)
 
   useEffect(()=>{
@@ -76,4 +76,4 @@ const JobListCard = () => {
   )
 }
 
-export default JobListCard
+export default AllJobCard

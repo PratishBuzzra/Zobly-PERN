@@ -132,7 +132,7 @@ export const jobByUser = async (req, res)=>{
             res.status(200).json({
                 success: true,
                 message: "job by user fetch success",
-                jobByUser
+                job: jobByUser
             })
         }else{
             res.status(404).json({
