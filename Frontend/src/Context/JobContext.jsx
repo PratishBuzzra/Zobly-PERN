@@ -11,9 +11,11 @@ const JobProvider = ({children}) => {
     const [jobs, setJob] = useState([])
     const [userJobs, setUserJobs] = useState([])
 
-    const allJobs = async ()=>{
+    const allJobs = async (filters = {})=>{
         try {
-            const res = await fetch(`${base_url}/job/all-job`, {
+            const query = new URLSearchParams(filters).toString()
+
+            const res = await fetch(`${base_url}/job/all-job?${query}`, {
                 method: 'GET',
                 credentials: "include"
             })

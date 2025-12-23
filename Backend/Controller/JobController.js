@@ -87,7 +87,29 @@ export const CreateJob = async (req, res) => {
 
 export const ViewAllJobs = async (req, res) => {
   try {
-    const allJobs = await prisma.job.findMany({});
+    const {
+      jobType,
+      experienceLevel,
+      field,
+      search
+    } = req.query
+
+    const where = {}
+    
+    if(field) where.field = field
+    if(experienceLevel) where.experienceLevel = experienceLevel
+    if(jobType) where.jobType = jobType
+
+    if(search){
+      where.OR = [
+        {title: {contains: search, mode: "insensitive"}},
+        { companyName: { contains: search, mode: "insensitive" } }
+      ]
+    }
+    const allJobs = await prisma.job.findMany({
+      where,
+      orderBy: { createdAt: "desc" },
+    });
 
     if (allJobs) {
       res.status(200).json({
@@ -262,3 +284,5 @@ export const deleteJob = async (req, res) => {
     });
   }
 };
+
+
