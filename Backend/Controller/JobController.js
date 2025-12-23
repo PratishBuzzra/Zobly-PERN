@@ -212,21 +212,39 @@ export const editJob = async (req, res) => {
       });
     }
 
+    const {
+      title,
+      companyName,
+      location,
+      salary,
+      jobType,
+      experienceLevel,
+      field,
+      description,
+      qualifications,
+      companyBackground,
+    } = req.body;
+
+ const parsedQualifications = qualifications
+      ? JSON.parse(qualifications)
+      : job.qualifications;
+
     const updatedJob = await prisma.job.update({
       where: {
         id: jobId,
       },
-      data: {
-        title,
-        companyName,
-        location,
-        salary,
-        jobType,
-        experienceLevel,
-        field,
-        description,
-        qualifications,
-        companyBackground,
+     data: {
+        title: title || job.title,
+        companyName: companyName || job.companyName,
+        location: location || job.location,
+        salary: salary || job.salary,
+        jobType: jobType || job.jobType,
+        experienceLevel: experienceLevel || job.experienceLevel,
+        field: field || job.field,
+        description: description || job.description,
+        qualifications: parsedQualifications,
+        companyBackground: companyBackground || job.companyBackground,
+          image: req.file ? req.file.path : job.image,
       },
     });
     res.status(200).json({

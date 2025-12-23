@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { createContext } from "react";
 import { useContext } from "react";
@@ -64,9 +65,49 @@ const JobProvider = ({children}) => {
         }
     }
 
+
+    const editJob = async (jobId, updatedFormData)=>{
+        try {
+            const res = await fetch(`${base_url}/job/edit/${jobId}`, {
+                method: "PATCH",
+                credentials: "include",
+                body: updatedFormData
+            })
+
+            if(!res.ok){
+                throw new Error("Failed to update job");
+            }
+            const data = await res.json();
+            console.log("updated job", data);
+            allJobs();
+            
+            
+        } catch (error) {
+             console.error("Failed to edit job", error);
+        }
+
+
+    }
+    const deleteJob = async (jobId) =>{
+        try {
+             const res = await fetch (`${base_url}/job/delete/${jobId}`,{
+            method: "DELETE",
+            credentials: "include"
+        })
+        if(!res.ok){
+            throw new Error("failed to delete job");
+        }
+        const data = await res.json();
+        allJobs();
+        } catch (error) {
+            console.log("failed to delete jobb", error);
+            
+        }
+       
+    }
     
     return (
-    <JobContext.Provider value={{jobs, allJobs, jobById, JobByUser, userJobs}}>
+    <JobContext.Provider value={{jobs, allJobs, jobById, JobByUser, userJobs, editJob, deleteJob}}>
         {children}
     </JobContext.Provider>
 )

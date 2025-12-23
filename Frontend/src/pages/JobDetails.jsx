@@ -7,17 +7,23 @@ import { TbCategoryFilled } from "react-icons/tb";
 import { useContext } from "react";
 import { JobContext } from "../Context/JobContext";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { AuthContext } from "../Context/authContext";
+import EditJob from "./EmployerPage/EditJob";
+
+
 
 const JobDetails = () => {
-   const { jobById} = useContext(JobContext)
-   const [job, setJob] = useState(null)
-   const {id} = useParams();
+   const {allJobs, editJob, jobById, deleteJob} = useContext(JobContext)
    const {role, userId, isLoggedIn, loading: authLoading} = useContext(AuthContext)
+   const [job, setJob] = useState(null)
+   
+   const {id} = useParams();
+   const [isEditing, setIsEditing] = useState(false)
+   
   
-
+ const navigate = useNavigate();
 
 useEffect(() => {
   if (!id || authLoading) return;
@@ -42,13 +48,13 @@ useEffect(() => {
    if (!job) {
     return <div className="p-24 text-center">Loading job details...</div>;
   }
- console.log("Debug:", {
-    userId,
-    jobEmployerId: job?.employerId,
-    role,
-    isLoggedIn,
-    comparison: userId === job?.employerId
-  });
+//  console.log("Debug:", {
+//     userId,
+//     jobEmployerId: job?.employerId,
+//     role,
+//     isLoggedIn,
+//     comparison: userId === job?.employerId
+//   });
 
 const isOwner =
   !authLoading &&
@@ -57,6 +63,23 @@ const isOwner =
   userId !== null &&
   job?.employerId === userId;
 
+  const handleEditSubmit = async(updatedFormData)=>{
+    await editJob(job.id, updatedFormData);
+    allJobs();
+    const updatedJob = await jobById(job.id)
+    setJob(updatedJob)
+    setIsEditing(false)
+
+  }
+
+  const handleDelete = async()=>{
+    if(window.confirm("Are you sure you want to delete job?")){
+      await deleteJob(job.id)
+      alert("deleted successfully")
+      navigate("/your-jobs")
+      
+    }
+  }
   return (
     <div className="w-full max-w-7xl  mx-auto px-6 p-24">
        
@@ -124,15 +147,12 @@ const isOwner =
           </p>
         </section>
 
-        
-       {isOwner ? (
+{isOwner ? (
           <div className="border-t pt-6 flex gap-3">
-            <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+            <button onClick={() => setIsEditing(true)} className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
               Edit Job
             </button>
-            <button className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition">
-              Delete Job
-            </button>
+            <button onClick={handleDelete} className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition">Delete Job</button>
           </div>
         ) : (
           isLoggedIn && role === "JOB_SEEKER" && (
@@ -144,6 +164,24 @@ const isOwner =
           )
         )}
       </div>
+      
+          {isEditing && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-xl max-w-3xl w-full relative">
+            <button
+              className="absolute top-3 right-3 text-gray-700 hover:text-black text-xl"
+              onClick={() => setIsEditing(false)}
+            >
+              &times;
+            </button>
+            <EditJob
+              existingJob={job}
+              onCancel={() => setIsEditing(false)}
+              onSubmit={handleEditSubmit}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -9,7 +9,7 @@ router.post("/post-job",requireSignIn, authorizeRole("EMPLOYER"), upload.single(
 router.get("/all-job", ViewAllJobs)
 router.get("/yourpostedjob",requireSignIn, jobByUser)
 router.get("/:id", ViewJobById)
-router.put("/edit/:id",requireSignIn, authorizeRole("EMPLOYER"), editJob)
+router.patch("/edit/:id",requireSignIn, authorizeRole("EMPLOYER"),upload.single('image'), editJob)
 router.delete("/delete/:id",requireSignIn, authorizeRole("EMPLOYER"), deleteJob)
 
 export default router
