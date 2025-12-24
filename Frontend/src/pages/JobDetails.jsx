@@ -157,9 +157,12 @@ const isOwner =
         ) : (
           isLoggedIn && role === "JOB_SEEKER" && (
             <div className="border-t pt-6 flex justify-end">
-              <button className="px-8 py-3 rounded-lg bg-green-600 hover:bg-green-700 text-white font-semibold transition">
-                <Link to={'/apply-job'}>Apply Now</Link>
-              </button>
+              <button
+  className="px-8 py-3 rounded-lg bg-green-600 hover:bg-green-700 text-white font-semibold transition"
+  onClick={() => navigate(`/jobs/${job.id}/apply-job`)}
+>
+  Apply Now
+</button>
             </div>
           )
         )}

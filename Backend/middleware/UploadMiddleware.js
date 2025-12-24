@@ -11,7 +11,7 @@ const storage = multer.diskStorage({
     }
 })
 
-const checkFileFilter = (req, file, cb) => {
+const imageFilter = (req, file, cb) => {
     if(file.mimetype.startsWith('image')){
         cb(null, true)
     }else{
@@ -19,10 +19,30 @@ const checkFileFilter = (req, file, cb) => {
     }
 }
 
-export default multer({
+const resumeFilter = (req, file,cb) =>{
+    const allowedTypes = [
+    "application/pdf",
+    "application/msword",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+  ]
+
+  if(allowedTypes.includes(file.mimetype)){
+    cb(null, true)
+  }else{
+    cb(new Error("only pdf or doc file allowed"), false)
+  }
+}
+
+export const uploadImage = multer({
     storage: storage,
-    fileFilter: checkFileFilter,
+    fileFilter: imageFilter,
     limits : {
         fileSize: 5 * 1024 * 1024 
     }
+})
+
+export const uploadResume = multer({
+  storage,
+  fileFilter: resumeFilter,
+  limits: { fileSize: 5 * 1024 * 1024 }
 })

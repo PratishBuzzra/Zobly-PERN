@@ -40,7 +40,7 @@ const App = () => {
             </Route>
             <Route element={<JobseekerRouter />}>
               <Route path='/myapplication' element={<MyApplication />} />
-              <Route path = '/apply-job' element = {<ApplyJob />} />
+              <Route path = '/jobs/:id/apply-job' element = {<ApplyJob />} />
               
 
             </Route>
