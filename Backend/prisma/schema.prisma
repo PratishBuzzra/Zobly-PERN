@@ -28,6 +28,7 @@ enum Role {
      role Role 
      created_at DateTime @default(now()) 
      jobs Job[]
+     applications Applications[]
      }
 
      enum JobType {
@@ -67,5 +68,22 @@ enum Role {
         createdAt DateTime @default(now())
         employerId Int
         employer User @relation(fields: [employerId], references: [id])
+        applications Applications[]
       }
     
+    model Applications {
+      id Int @id @default(autoincrement())
+      name String
+      email String 
+      PhoneNumber String
+      address String
+      coverLetter String
+      resume String
+      applicantId Int
+      applicant User @relation(fields: [applicantId], references: [id])
+      jobId Int 
+      job Job @relation(fields: [jobId], references: [id])
+
+       createdAt     DateTime @default(now())
+
+    }

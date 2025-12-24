@@ -16,6 +16,7 @@ import EmployerRoutes from './routes/EmployerRoutes'
 import MyApplication from './pages/JobSeekerPage/MyApplication'
 import JobseekerRouter from './routes/JobseekerRouter'
 import JobDetails from './pages/JobDetails'
+import ApplyJob from './pages/JobSeekerPage/ApplyJob'
 
 const App = () => {
   return (
@@ -39,6 +40,7 @@ const App = () => {
             </Route>
             <Route element={<JobseekerRouter />}>
               <Route path='/myapplication' element={<MyApplication />} />
+              <Route path = '/apply-job' element = {<ApplyJob />} />
               
 
             </Route>

@@ -7,7 +7,7 @@ import { TbCategoryFilled } from "react-icons/tb";
 import { useContext } from "react";
 import { JobContext } from "../Context/JobContext";
 import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { AuthContext } from "../Context/authContext";
 import EditJob from "./EmployerPage/EditJob";
@@ -158,7 +158,7 @@ const isOwner =
           isLoggedIn && role === "JOB_SEEKER" && (
             <div className="border-t pt-6 flex justify-end">
               <button className="px-8 py-3 rounded-lg bg-green-600 hover:bg-green-700 text-white font-semibold transition">
-                Apply Now
+                <Link to={'/apply-job'}>Apply Now</Link>
               </button>
             </div>
           )
