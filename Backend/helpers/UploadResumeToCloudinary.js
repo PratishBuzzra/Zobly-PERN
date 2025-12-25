@@ -4,7 +4,7 @@ const uploadResumeToCloudinary = async (filePath) => {
   try {
     const result = await cloudinary.uploader.upload(filePath, {
       folder: "Zobly_Resumes",
-      resource_type: "auto",   
+      resource_type: "raw",   
     access_mode: "public",   
   
     });
