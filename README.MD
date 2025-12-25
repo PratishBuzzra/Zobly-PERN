@@ -8,14 +8,14 @@
 - **Database:** PostgreSQL (via Prisma ORM)  
 
 ###  Features
-## Job Seekers
+**Job Seekers**
 - Register & login as jobseeker
 - Browse and search all available jobs
 - View detailed job descriptions
 - Apply for jobs with resume upload
 - Track applied jobs (My Applications)
 
-## Employers
+**Employers**
 - Register & login as employer
 - Post new job listings
 - Edit & delete existing jobs
