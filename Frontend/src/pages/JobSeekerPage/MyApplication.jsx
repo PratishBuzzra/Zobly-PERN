@@ -91,8 +91,7 @@ const MyApplication = () => {
           </div>
         ))}
       </div>
-
-      {/* ================= MODAL ================= */}
+      
       {selectedApp && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white max-w-2xl w-full rounded-lg p-6 relative">

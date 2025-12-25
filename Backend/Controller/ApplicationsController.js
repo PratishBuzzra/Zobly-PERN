@@ -173,3 +173,49 @@ export const deleteApplication = async (req, res)=>{
     });
     }
 }
+
+export const employerGetAllApplications = async(req, res)=>{
+  try {
+     const role = req.user.role
+        if(role === "JOB_SEEKER"){
+             return res.json({
+                message: "job seeker are not allowed to acces this"
+            })
+        }
+        const employerId = req.user.id
+        const applications = await prisma.applications.findMany({
+         where:{
+          job:{
+
+            employerId: employerId
+          }
+        } ,
+         include: {
+        job: true,
+      },
+      orderBy: {
+        createdAt: "desc"
+      }
+
+        })
+         if (applications) {
+      res.status(200).json({
+        success: true,
+        message: "appication fetch success",
+        applications
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "application not found in collection",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Some error occured please try again",
+    });
+    
+  }
+}
