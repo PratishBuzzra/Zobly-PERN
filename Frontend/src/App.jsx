@@ -21,7 +21,7 @@ import ApplyJob from './pages/JobSeekerPage/ApplyJob'
 const App = () => {
   return (
     <div>
-      <BrowserRouter>
+    
       <Navbar />
       <Routes>
         <Route path='/' element={<Home />}/>
@@ -47,7 +47,7 @@ const App = () => {
       </Routes>
       <Footer />
       <Copyright />
-      </BrowserRouter>
+     
     </div>
   )
 }

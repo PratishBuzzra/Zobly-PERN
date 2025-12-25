@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 export const AuthContext = createContext();
@@ -9,6 +10,7 @@ export const AuthProvider = ({children})=>{
     const [role, setRole] = useState("")
      const [loading, setLoading] = useState(true)
      const [userId, setUserId] = useState(null);
+       const navigate = useNavigate();
 
      useEffect(()=>{
         const checkAuth = async ()=>{
@@ -71,6 +73,8 @@ export const AuthProvider = ({children})=>{
     setUsername("");
     setRole(null);
      setUserId(null);
+     navigate("/")
+     
     
   };
   return (

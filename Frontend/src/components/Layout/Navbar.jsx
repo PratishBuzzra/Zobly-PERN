@@ -6,6 +6,8 @@ import { FaUserCircle, FaBars, FaTimes } from "react-icons/fa";
 
 import ProfileDropdown from './ProfileDropdown';
 import MobileMenu from './MobileMenu';
+import { useRef } from 'react';
+import { useEffect } from 'react';
 const Navbar = () => {
   const {isLoggedIn, username, logout,role} = useContext(AuthContext)
   const [showDropdown, setShowDropdown] = useState(false);
@@ -13,6 +15,25 @@ const Navbar = () => {
   const [mobileMenu, setMobileMenu] = useState(false)
   const handleDropdown = () => setShowDropdown(prev => !prev)
   const handleMobileMenu = () => setMobileMenu(prev => !prev)
+
+  const employerRef = useRef(null)
+  const profileRef = useRef(null)
+
+  useEffect(()=>{
+    const handleClickOutside = (e)=>{
+      if(employerRef.current && !employerRef.current.contains(e.target)){
+        setShowDropdown(false)
+      }
+      if (
+        profileRef.current &&
+        !profileRef.current.contains(e.target)
+      ) {
+        setShowRolwDropdown(false)
+      }
+    }
+     document.addEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  })
   return (
     <div className='fixed top-0 left-0 w-full bg-white shadow-lg px-4 py-4 z-50'>
         <div className='flex justify-between items-center max-w-6xl mx-auto'>
@@ -45,7 +66,7 @@ const Navbar = () => {
 
                 {isLoggedIn && role === "EMPLOYER" ? (
                   
-                    <li className='relative'>
+                    <li className='relative' ref={employerRef}>
                       <span 
                   onClick={handleDropdown} 
                   className="cursor-pointer"
@@ -62,7 +83,7 @@ const Navbar = () => {
                 ):null}
               </ul>
               {isLoggedIn ? (
-                <div className='relative'>
+                <div className='relative' ref={profileRef}>
                   <FaUserCircle onClick={()=>setShowRolwDropdown(prev => ! prev)} className='text-4xl cursor-pointer text-center'/>
                   {showRoleDropdown && <ProfileDropdown handleProfileDropdown={()=>setShowRolwDropdown(prev => ! prev)}/>}
                 </div>

@@ -18,9 +18,9 @@ const Applicants = () => {
 
 
   return (
-    <div className="min-h-screen pt-24 bg-gray-100 px-6">
+    <div className="min-h-screen pt-24 bg-gray-100 px-4  md:px-6">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold mb-6">Applicants For Your Jobs</h2>
+        <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center md:text-left">Applicants For Your Jobs</h2>
 
         {applications.map((app) => (
           <div
@@ -66,8 +66,8 @@ const Applicants = () => {
 
      
       {selectedApp && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white max-w-2xl w-full rounded-lg p-6 relative">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white max-w-lg w-full rounded-lg p-4 md:p-6 relative overflow-y-auto max-h-[90vh]">
             <button
               onClick={() => setSelectedApp(null)}
               className="absolute top-3 right-4 text-xl"
@@ -75,7 +75,7 @@ const Applicants = () => {
               ✕
             </button>
 
-            <h3 className="text-2xl font-bold mb-4">
+            <h3 className="text-xl md:text-2xl font-bold mb-4 text-center md:text-left">
               Application Details
             </h3>
 

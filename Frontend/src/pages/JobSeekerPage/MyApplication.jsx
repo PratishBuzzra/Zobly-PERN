@@ -91,10 +91,10 @@ const MyApplication = () => {
           </div>
         ))}
       </div>
-      
+
       {selectedApp && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white max-w-2xl w-full rounded-lg p-6 relative">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white max-w-lg w-full rounded-lg p-4 md:p-6 relative overflow-y-auto max-h-[90vh]">
             <button
               onClick={() => setSelectedApp(null)}
               className="absolute top-3 right-4 text-xl"

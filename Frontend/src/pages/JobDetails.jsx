@@ -81,7 +81,7 @@ const isOwner =
     }
   }
   return (
-    <div className="w-full max-w-7xl  mx-auto px-6 p-24">
+    <div className="w-full max-w-7xl  mx-auto px-4 md:px-6 py-24">
        
       
           <div className="bg-white border border-gray-200 rounded-2xl p-8">
@@ -93,7 +93,7 @@ const isOwner =
             className="w-20 h-20 rounded-lg object-cover"
           />
           <div>
-            <h1 className="text-3xl font-bold">{job.title}</h1>
+            <h1 className="text-2xl md:text-3xl font-bold">{job.title}</h1>
             <p className="text-lg text-gray-600">{job.companyName}</p>
           </div>
         </div>
@@ -169,10 +169,11 @@ const isOwner =
       </div>
       
           {isEditing && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-xl max-w-3xl w-full relative">
+      <div className="fixed inset-0 bg-black/50 z-50 overflow-y-auto">
+  <div className="min-h-screen flex items-start md:items-center justify-center p-4">
+    <div className="bg-white p-4 sm:p-6 rounded-xl w-full max-w-3xl relative">
             <button
-              className="absolute top-3 right-3 text-gray-700 hover:text-black text-xl"
+              className="absolute top-3 right-6 md:top-5 md:right-7 text-gray-700 hover:text-black text-xl"
               onClick={() => setIsEditing(false)}
             >
               &times;
@@ -183,6 +184,7 @@ const isOwner =
               onSubmit={handleEditSubmit}
             />
           </div>
+        </div>
         </div>
       )}
     </div>
