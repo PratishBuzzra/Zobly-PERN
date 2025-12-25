@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 import prisma from '../DB/db.config.js';
-const secret = process.env.JWT_SECRET_KEY;
+
 
 
 
@@ -20,8 +20,16 @@ export const requireSignIn = async (req, res, next) => {
         // Verify the token and decode the payload
         const decode = jwt.verify(token, process.env.JWT_SECRET_KEY);
 
-
-        req.user = decode.user;
+      const user = await prisma.user.findUnique({
+      where: { id: decode.user.id },  // assuming you stored user.id in JWT
+    });
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized access, user not found",
+      });
+    }
+        req.user = user;
 
         // Proceed to the next middleware/route handler
         next();

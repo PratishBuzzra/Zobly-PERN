@@ -5,8 +5,8 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({children})=>{
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [username, setUsername] = useState("Guest")
-    const [role, setRole] = useState(null)
+    const [username, setUsername] = useState(null)
+    const [role, setRole] = useState("")
      const [loading, setLoading] = useState(true)
      const [userId, setUserId] = useState(null);
 
@@ -25,6 +25,8 @@ export const AuthProvider = ({children})=>{
                     setRole(data.user.role);
                     setUsername(data.user.name)
                      setUserId(data.user.id);
+                     
+                     
                 }
             }catch(err){
                 console.log("not logged in");
@@ -66,7 +68,7 @@ export const AuthProvider = ({children})=>{
         })
 
     setIsLoggedIn(false);
-    setUsername("Guest");
+    setUsername("");
     setRole(null);
      setUserId(null);
     

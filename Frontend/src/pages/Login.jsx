@@ -38,8 +38,10 @@ const Login = () => {
 
       if(res.ok){
         alert('loginsuccessful');
-        login(data.user)
-        console.log('user role', data.user.role);
+        login()
+        navigate("/jobs")
+    
+        
         
       }else{
         alert(data.error || 'login failed')
